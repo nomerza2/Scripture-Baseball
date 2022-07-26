@@ -1,0 +1,53 @@
+package com.example.scripturebaseball
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.Spinner
+import android.widget.TextView
+import com.google.gson.Gson
+import org.json.JSONArray
+import org.json.JSONObject
+import java.io.BufferedReader
+import java.io.File
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        //spinner adapter, citation https://developer.android.com/guide/topics/ui/controls/spinner#kotlin
+        /*val spinner: Spinner = findViewById(R.id.book_chooser)
+        ArrayAdapter.createFromResource(this, R.array.BoM_Books, android.R.layout.simple_spinner_item
+        ).also{ adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinner.adapter = adapter
+        }*/
+    }
+
+    fun onClick(view: View) {
+
+        val book_chooser = findViewById<Spinner>(R.id.book_chooser)
+        //val book_location = book_chooser.selectedItem.toString()
+        //val book_index = book_chooser.gravity
+        val book_index = book_chooser.selectedItemPosition
+
+        //var gson = Gson()
+        //val gson_data = Gson
+
+        val bufferedReader: BufferedReader = this.assets.open("book-of-mormon.json").bufferedReader()
+        val inputString = bufferedReader.use { it.readText() }
+
+        var jBook = JSONObject(inputString)
+        var books: JSONArray = jBook["books"] as JSONArray
+        var chosenBook: JSONObject = books[book_index] as JSONObject
+        var jChapters: JSONArray = chosenBook["chapters"] as JSONArray
+        val chapterCount = jChapters.length()
+
+        //call.apply at end and assign message
+        var output = findViewById<TextView>(R.id.TextDisplayView).apply {
+            text = chapterCount.toString()
+        }
+    }
+}

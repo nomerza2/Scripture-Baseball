@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Scripture Baseball</string>
+    <string-array name="BoM_Books">
+        <item>1 Nephi</item>
+        <item>2 Nephi</item>
+        <item>Jacob</item>
+        <item>Enos</item>
+        <item>Jarom</item>
+        <item>Omni</item>
+        <item>Words of Mormon</item>
+        <item>Mosiah</item>
+        <item>Alma</item>
+        <item>Helaman</item>
+        <item>3 Nephi</item>
+        <item>4 Nephi</item>
+        <item>Mormon</item>
+        <item>Ether</item>
+        <item>Moroni</item>
+    </string-array>
+</resources>
