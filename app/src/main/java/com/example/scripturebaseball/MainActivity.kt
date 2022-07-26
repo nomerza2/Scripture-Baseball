@@ -3,6 +3,7 @@ package com.example.scripturebaseball
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
@@ -14,6 +15,7 @@ import java.io.File
 
 class MainActivity : AppCompatActivity() {
     var jBoM: JSONObject? = null
+    var chapterLimit: Int = 0
 
     fun BookInit(): JSONObject {
         val bufferedReader: BufferedReader = this.assets.open("book-of-mormon.json").bufferedReader()
@@ -28,6 +30,28 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         jBoM = BookInit()
+
+        val bookChooser: Spinner = findViewById(R.id.book_chooser)
+
+        bookChooser.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                var books: JSONArray = jBoM?.get("books") as JSONArray
+                var chosenBook: JSONObject = books[position] as JSONObject
+                var jChapters: JSONArray = chosenBook["chapters"] as JSONArray
+                chapterLimit = jChapters.length()
+
+                var output = findViewById<TextView>(R.id.TextDisplayView).apply {
+                    text = "Select 1-$chapterLimit"
+                }
+
+            }
+
+            //Does Nothing, but needs an implemention
+            override fun onNothingSelected(p0: AdapterView<*>?) { }
+        }
+
+        //bookChooser.onItemSelectedListener = this
+
         //spinner adapter, citation https://developer.android.com/guide/topics/ui/controls/spinner#kotlin
         /*val spinner: Spinner = findViewById(R.id.book_chooser)
         ArrayAdapter.createFromResource(this, R.array.BoM_Books, android.R.layout.simple_spinner_item
@@ -57,5 +81,7 @@ class MainActivity : AppCompatActivity() {
         var output = findViewById<TextView>(R.id.TextDisplayView).apply {
             text = chapterCount.toString()
         }
+
+
     }
 }
