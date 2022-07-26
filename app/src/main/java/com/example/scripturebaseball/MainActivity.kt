@@ -13,10 +13,21 @@ import java.io.BufferedReader
 import java.io.File
 
 class MainActivity : AppCompatActivity() {
+    var jBoM: JSONObject? = null
+
+    fun BookInit(): JSONObject {
+        val bufferedReader: BufferedReader = this.assets.open("book-of-mormon.json").bufferedReader()
+        val inputString = bufferedReader.use { it.readText() }
+
+        var jBook = JSONObject(inputString)
+        return jBook
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        jBoM = BookInit()
         //spinner adapter, citation https://developer.android.com/guide/topics/ui/controls/spinner#kotlin
         /*val spinner: Spinner = findViewById(R.id.book_chooser)
         ArrayAdapter.createFromResource(this, R.array.BoM_Books, android.R.layout.simple_spinner_item
@@ -36,11 +47,8 @@ class MainActivity : AppCompatActivity() {
         //var gson = Gson()
         //val gson_data = Gson
 
-        val bufferedReader: BufferedReader = this.assets.open("book-of-mormon.json").bufferedReader()
-        val inputString = bufferedReader.use { it.readText() }
 
-        var jBook = JSONObject(inputString)
-        var books: JSONArray = jBook["books"] as JSONArray
+        var books: JSONArray = jBoM?.get("books") as JSONArray
         var chosenBook: JSONObject = books[book_index] as JSONObject
         var jChapters: JSONArray = chosenBook["chapters"] as JSONArray
         val chapterCount = jChapters.length()
