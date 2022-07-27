@@ -9,20 +9,21 @@
     <TextView
         android:id="@+id/TextDisplayView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginBottom="90dp"
+        android:layout_height="24dp"
+        android:layout_marginBottom="30dp"
         android:text="Hello World!"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.235"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.728" />
 
     <Spinner
         android:id="@+id/book_chooser"
-        android:layout_width="209dp"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="194dp"
         android:entries="@array/BoM_Books"
@@ -36,8 +37,8 @@
         android:id="@+id/submitter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="77dp"
-        android:layout_marginBottom="215dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="316dp"
         android:onClick="onClick"
         android:text="Button"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -70,8 +71,56 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="134dp"
-        android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/chapter_input"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/Guess_Result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="124dp"
+        android:layout_marginBottom="38dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/Score_Displayer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="164dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/verse_display" />
+
+    <TextView
+        android:id="@+id/Score_Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="58dp"
+        android:layout_marginBottom="22dp"
+        android:text="@string/Score"
+        app:layout_constraintBottom_toTopOf="@+id/Score_Displayer"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/Guesses_Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/Guesses_Remaining"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Score_Displayer" />
+
+    <TextView
+        android:id="@+id/Remaining_Guesses_Displayer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="58dp"
+        android:layout_marginTop="26dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Guesses_Title" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

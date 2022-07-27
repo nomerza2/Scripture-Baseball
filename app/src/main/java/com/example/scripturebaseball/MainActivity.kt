@@ -1,12 +1,11 @@
 package com.example.scripturebaseball
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.TextView
+import android.view.inputmethod.InputMethodManager
+import android.widget.*
 import com.google.gson.Gson
 import org.json.JSONArray
 import org.json.JSONObject
@@ -20,6 +19,24 @@ class MainActivity : AppCompatActivity() {
     private var targetBookIndex: Int = 0 //0-14, associated with books
     private var targetChapter: Int = 1 //1-chapterLimit, associated with chapters
     private val totalBoMChapters = 239
+    private var score = 0
+    private val attemptsPerVerse = 3
+    private var attemptsRemaining = attemptsPerVerse
+    private var currentState: GameState = GameState.GUESSING
+
+    enum class GameState {
+        GUESSING, SUCCESS, LOSS
+    }
+
+    private fun updateScore(newScore: Int) {
+        score = newScore
+        findViewById<TextView>(R.id.Score_Displayer).setText(score.toString())
+    }
+
+    private fun updateAttemptsRemaining(newAttempts: Int) {
+        attemptsRemaining = newAttempts
+        findViewById<TextView>(R.id.Remaining_Guesses_Displayer).setText(attemptsRemaining.toString())
+    }
 
     private fun bookInit(): JSONObject {
         val bufferedReader: BufferedReader = this.assets.open("book-of-mormon.json").bufferedReader()
@@ -29,7 +46,11 @@ class MainActivity : AppCompatActivity() {
         return jBook
     }
 
+    //Resets currentState, attemptsRemaining, Selects a new verse, displays it, and assigns targetBookIndex and targetChapter
     private fun updateVerse() {
+        currentState = GameState.GUESSING
+        updateAttemptsRemaining(attemptsPerVerse)
+
         var books: JSONArray = jBoM?.get("books") as JSONArray
 
         var relativeChapter = Random.nextInt(1, totalBoMChapters + 1) //until is exclusive, therefore + 1
@@ -61,10 +82,45 @@ class MainActivity : AppCompatActivity() {
             text = "$realVerse: $displayText"
         }
 
-        val tempString = "$targetBookIndex $targetChapter"
+        /* These lines will display the answers, for testing purposes
 
+        val tempString = "$targetBookIndex $targetChapter"
         val tempDisplay = findViewById<TextView>(R.id.textView2).apply {
             text = tempString
+        }*/
+    }
+
+    //Displays message based on guess, handles score, attempts remaining, and currentState changes accordingly
+    private fun interpretGuess() {
+        val chapterInput = findViewById<EditText>(R.id.chapter_input)
+        val guessedChapter: Int = chapterInput.text.toString().toInt()
+        val bookChooser = findViewById<Spinner>(R.id.book_chooser)
+        val bookIndex = bookChooser.selectedItemPosition
+        var message: String
+
+        if (guessedChapter > chapterLimit) {
+            message = getString(R.string.Nonexistant_Guess)
+        } else if (bookIndex != targetBookIndex) {
+            message = getString(R.string.Wrong_Book)
+            updateAttemptsRemaining(attemptsRemaining - 1)
+        } else if (targetChapter > guessedChapter) {
+            message = getString(R.string.Higher)
+            updateAttemptsRemaining(attemptsRemaining - 1)
+        } else if (targetChapter < guessedChapter) {
+            message = getString(R.string.Lower)
+            updateAttemptsRemaining(attemptsRemaining - 1)
+        } else {
+            message = getString(R.string.Correct)
+            updateScore(score + 1)
+            currentState = GameState.SUCCESS
+        }
+
+        if (attemptsRemaining == 0) {
+            currentState = GameState.LOSS
+        }
+
+        val displayAnswer = findViewById<TextView>(R.id.Guess_Result).apply {
+            text = message
         }
     }
 
@@ -94,6 +150,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         updateVerse()
+        updateScore(0)
 
         //bookChooser.onItemSelectedListener = this
 
@@ -108,27 +165,15 @@ class MainActivity : AppCompatActivity() {
 
     fun onClick(view: View) {
 
-        /*val book_chooser = findViewById<Spinner>(R.id.book_chooser)
-        //val book_location = book_chooser.selectedItem.toString()
-        //val book_index = book_chooser.gravity
-        val book_index = book_chooser.selectedItemPosition
+        //HIDE KEYBOARD
+        //Citation: https://tutorial.eyehunts.com/android/hide-soft-keyboard-android-code-in-kotlin-programmatically/
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        imm?.hideSoftInputFromWindow(view.windowToken, 0)
 
-        //var gson = Gson()
-        //val gson_data = Gson
-
-
-        var books: JSONArray = jBoM?.get("books") as JSONArray
-        var chosenBook: JSONObject = books[book_index] as JSONObject
-        var jChapters: JSONArray = chosenBook["chapters"] as JSONArray
-        val chapterCount = jChapters.length()
-
-        //call.apply at end and assign message
-        var output = findViewById<TextView>(R.id.TextDisplayView).apply {
-            text = chapterCount.toString()
-        }*/
-
-        updateVerse()
-
-
+        if (currentState == GameState.GUESSING) {
+            interpretGuess()
+        } else {
+            updateVerse()
+        }
     }
 }

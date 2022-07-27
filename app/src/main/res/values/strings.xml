@@ -17,4 +17,11 @@
         <item>Ether</item>
         <item>Moroni</item>
     </string-array>
+    <string name="Nonexistant_Guess">That chapter does not exist</string>
+    <string name="Wrong_Book">Incorrect Book</string>
+    <string name="Higher">Right Book, Higher Chapter</string>
+    <string name="Lower">Right Book, Lower Chapter</string>
+    <string name="Correct">Correct!</string>
+    <string name="Score">Score</string>
+    <string name="Guesses_Remaining">Guesses Remaining</string>
 </resources>
