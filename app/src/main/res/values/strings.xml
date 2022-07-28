@@ -24,4 +24,8 @@
     <string name="Correct">Correct!</string>
     <string name="Score">Score</string>
     <string name="Guesses_Remaining">Guesses Remaining</string>
+    <string name="Guess">Guess</string>
+    <string name="Next_Verse">Next Verse!</string>
+    <string name="Game_Over">Try Again!</string>
+    <string name="Display_Correct">The Correct Chapter is</string>
 </resources>

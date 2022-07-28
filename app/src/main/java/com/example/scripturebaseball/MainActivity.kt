@@ -38,6 +38,33 @@ class MainActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.Remaining_Guesses_Displayer).setText(attemptsRemaining.toString())
     }
 
+    private fun updateCurrentState(state: GameState) {
+        val button: Button = findViewById(R.id.submitter)
+        val answerShower: TextView = findViewById(R.id.Guess_Result)
+
+        if (state == GameState.SUCCESS) {
+            updateScore(score + 1)
+            button.setText(R.string.Next_Verse)
+        } else if (state == GameState.LOSS) {
+            button.setText(R.string.Game_Over)
+            val bookAnswer: String = resources.getStringArray(R.array.BoM_Books)[targetBookIndex]
+            val displayCorrect: String = getString(R.string.Display_Correct)
+            val correctAnswer = "$displayCorrect $bookAnswer $targetChapter"
+            answerShower.text = correctAnswer
+
+        } else if (state == GameState.GUESSING) {
+            button.setText(R.string.Guess)
+            answerShower.text = ""//Awkward when hits from previous verse show up on new one. Now it's cleared when verse updates
+
+            if (currentState == GameState.LOSS) {// Resets score not when game is lost, but when a new game is started
+                updateScore(0)
+            }
+        }
+
+        currentState = state
+
+    }
+
     private fun bookInit(): JSONObject {
         val bufferedReader: BufferedReader = this.assets.open("book-of-mormon.json").bufferedReader()
         val inputString = bufferedReader.use { it.readText() }
@@ -48,7 +75,7 @@ class MainActivity : AppCompatActivity() {
 
     //Resets currentState, attemptsRemaining, Selects a new verse, displays it, and assigns targetBookIndex and targetChapter
     private fun updateVerse() {
-        currentState = GameState.GUESSING
+        updateCurrentState(GameState.GUESSING)
         updateAttemptsRemaining(attemptsPerVerse)
 
         var books: JSONArray = jBoM?.get("books") as JSONArray
@@ -111,17 +138,18 @@ class MainActivity : AppCompatActivity() {
             updateAttemptsRemaining(attemptsRemaining - 1)
         } else {
             message = getString(R.string.Correct)
-            updateScore(score + 1)
-            currentState = GameState.SUCCESS
-        }
-
-        if (attemptsRemaining == 0) {
-            currentState = GameState.LOSS
+            updateCurrentState(GameState.SUCCESS)
         }
 
         val displayAnswer = findViewById<TextView>(R.id.Guess_Result).apply {
             text = message
         }
+
+        //In event of a loss, the updateCurrentState will override the message that was just displayed
+        if (attemptsRemaining == 0) {
+            updateCurrentState(GameState.LOSS)
+        }
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
