@@ -120,12 +120,13 @@ class MainActivity : AppCompatActivity() {
     //Displays message based on guess, handles score, attempts remaining, and currentState changes accordingly
     private fun interpretGuess() {
         val chapterInput = findViewById<EditText>(R.id.chapter_input)
-        val guessedChapter: Int = chapterInput.text.toString().toInt()
+
+        val guessedChapter: Int = chapterInput.text?.toString()?.toIntOrNull() ?: 0 //Elvis Operator - blank input = null = 0 = Nonexistant guess
         val bookChooser = findViewById<Spinner>(R.id.book_chooser)
         val bookIndex = bookChooser.selectedItemPosition
         var message: String
 
-        if (guessedChapter > chapterLimit) {
+        if (guessedChapter > chapterLimit || guessedChapter <= 0){
             message = getString(R.string.Nonexistant_Guess)
         } else if (bookIndex != targetBookIndex) {
             message = getString(R.string.Wrong_Book)
