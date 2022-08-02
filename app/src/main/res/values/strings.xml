@@ -32,4 +32,5 @@
     <string name="Easy">Easy</string>
     <string name="Normal">Normal</string>
     <string name="input_hint">Chapter</string>
+    <string name="Link_Button">Read this verse in context</string>
 </resources>

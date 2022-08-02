@@ -1,6 +1,8 @@
 package com.example.scripturebaseball
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -18,6 +20,8 @@ class MainActivity : AppCompatActivity() {
     private var chapterLimit: Int = 0
     private var targetBookIndex: Int = 0 //0-14, associated with books
     private var targetChapter: Int = 1 //1-chapterLimit, associated with chapters
+    private var targetVerse: Int = 1 //Used solely for the link button
+    private var targetBookSlug: String = ""//Used in link button, but makes more sense to init in updateVerse, where the jBoM is already being parsed
     private val totalBoMChapters = 239
     private var score = 0
     private var attemptsPerVerse = 3 //Default Value
@@ -41,18 +45,10 @@ class MainActivity : AppCompatActivity() {
     private fun updateCurrentState(state: GameState) {
         val button: Button = findViewById(R.id.submitter)
         val answerShower: TextView = findViewById(R.id.Guess_Result)
+        val linkButton: Button = findViewById(R.id.link_button)
 
-        if (state == GameState.SUCCESS) {
-            updateScore(score + 1)
-            button.setText(R.string.Next_Verse)
-        } else if (state == GameState.LOSS) {
-            button.setText(R.string.Game_Over)
-            val bookAnswer: String = resources.getStringArray(R.array.BoM_Books)[targetBookIndex]
-            val displayCorrect: String = getString(R.string.Display_Correct)
-            val correctAnswer = "$displayCorrect $bookAnswer $targetChapter"
-            answerShower.text = correctAnswer
-
-        } else if (state == GameState.GUESSING) {
+        if (state == GameState.GUESSING) {
+            linkButton.visibility = View.GONE
             button.setText(R.string.Guess)
             answerShower.text = ""//Awkward when hints from previous verse show up on new one. Now it's cleared when verse updates
             val chapterInput: EditText = findViewById(R.id.chapter_input)
@@ -60,6 +56,20 @@ class MainActivity : AppCompatActivity() {
 
             if (currentState == GameState.LOSS) {// Resets score not when game is lost, but when a new game is started
                 updateScore(0)
+            }
+        } else {
+            linkButton.visibility = View.VISIBLE
+
+            if (state == GameState.SUCCESS) {
+                updateScore(score + 1)
+                button.setText(R.string.Next_Verse)
+            } else if (state == GameState.LOSS) {
+                button.setText(R.string.Game_Over)
+                val bookAnswer: String = resources.getStringArray(R.array.BoM_Books)[targetBookIndex]
+                val displayCorrect: String = getString(R.string.Display_Correct)
+                val correctAnswer = "$displayCorrect $bookAnswer $targetChapter"
+                answerShower.text = correctAnswer
+
             }
         }
 
@@ -111,6 +121,8 @@ class MainActivity : AppCompatActivity() {
             text = "$realVerse: $displayText"
         }
 
+        targetBookSlug = chosenBook["lds_slug"] as String
+        targetVerse = realVerse
         /* These lines will display the answers, for testing purposes
 
         val tempString = "$targetBookIndex $targetChapter"
@@ -208,5 +220,12 @@ class MainActivity : AppCompatActivity() {
         } else {
             updateVerse()
         }
+    }
+
+    fun onLinkButtonClick(view: View) {
+        val urlString = "https://www.churchofjesuschrist.org/study/scriptures/bofm/$targetBookSlug/$targetChapter?lang=eng&id=$targetVerse#p$targetVerse"
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(urlString))
+
+        startActivity(browserIntent)
     }
 }
