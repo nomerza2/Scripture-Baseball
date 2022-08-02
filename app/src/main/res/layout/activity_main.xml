@@ -43,12 +43,14 @@
 
     <EditText
         android:id="@+id/chapter_input"
-        android:layout_width="60dp"
+        android:layout_width="90dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="276dp"
+        android:layout_marginStart="266dp"
         android:layout_marginTop="41dp"
         android:ems="10"
+        android:hint="@string/input_hint"
         android:inputType="number"
+        android:minHeight="48dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TextDisplayView" />
 

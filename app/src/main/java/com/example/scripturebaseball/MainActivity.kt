@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     private var targetChapter: Int = 1 //1-chapterLimit, associated with chapters
     private val totalBoMChapters = 239
     private var score = 0
-    private val attemptsPerVerse = 3
+    private var attemptsPerVerse = 3 //Default Value
     private var attemptsRemaining = attemptsPerVerse
     private var currentState: GameState = GameState.GUESSING
 
@@ -54,7 +54,9 @@ class MainActivity : AppCompatActivity() {
 
         } else if (state == GameState.GUESSING) {
             button.setText(R.string.Guess)
-            answerShower.text = ""//Awkward when hits from previous verse show up on new one. Now it's cleared when verse updates
+            answerShower.text = ""//Awkward when hints from previous verse show up on new one. Now it's cleared when verse updates
+            val chapterInput: EditText = findViewById(R.id.chapter_input)
+            chapterInput.text.clear() // Removes Previous guesses on a new verse
 
             if (currentState == GameState.LOSS) {// Resets score not when game is lost, but when a new game is started
                 updateScore(0)
@@ -156,6 +158,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        attemptsPerVerse = intent.getIntExtra("GUESS_LIMIT", attemptsPerVerse) //Uses the preassigned value as the default
 
         jBoM = bookInit()
 
