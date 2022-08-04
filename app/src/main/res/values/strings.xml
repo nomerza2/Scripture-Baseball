@@ -28,9 +28,12 @@
     <string name="Next_Verse">Next Verse!</string>
     <string name="Game_Over">Try Again!</string>
     <string name="Display_Correct">The Correct Chapter is</string>
-    <string name="Welcome">Welcome to Scripture Baseball! Please Choose a Difficulty to Begin</string>
+    <string name="Welcome">Welcome to Scripture Baseball!</string>
     <string name="Easy">Easy</string>
     <string name="Normal">Normal</string>
     <string name="input_hint">Chapter</string>
     <string name="Link_Button">Read this verse in context</string>
+    <string name="Difficult_Choice">Choose a Difficulty to Begin</string>
+    <string name="Invitation">Learn More About the Book of Mormon</string>
+    <string name="Come_Unto_Christ_Link">https://www.churchofjesuschrist.org/comeuntochrist</string>
 </resources>

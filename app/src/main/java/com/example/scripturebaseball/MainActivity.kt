@@ -53,6 +53,7 @@ class MainActivity : AppCompatActivity() {
             answerShower.text = ""//Awkward when hints from previous verse show up on new one. Now it's cleared when verse updates
             val chapterInput: EditText = findViewById(R.id.chapter_input)
             chapterInput.text.clear() // Removes Previous guesses on a new verse
+            var bookChooser: Spinner = findViewById(R.id.book_chooser)
 
             if (currentState == GameState.LOSS) {// Resets score not when game is lost, but when a new game is started
                 updateScore(0)
@@ -108,12 +109,18 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        ////***FOR TESTING UI - Longest Verse by Characters in BoM is Alma 60:16
+        //targetChapter = 60
+        //targetBookIndex = 8
 
         val chosenBook: JSONObject = books[targetBookIndex] as JSONObject
         val jChapters: JSONArray = chosenBook["chapters"] as JSONArray
         val chosenChapter: JSONObject = jChapters[targetChapter - 1] as JSONObject
         val verseArray: JSONArray = chosenChapter["verses"] as JSONArray
         val verseIndex = Random.nextInt(verseArray.length())
+        //ALSO FOR LONGEST VERSE TEST
+        //val verseIndex = 15
+
         val verse: JSONObject = verseArray[verseIndex] as JSONObject
         val realVerse: Int = verse["verse"] as Int
         val displayText: String = verse["text"] as String

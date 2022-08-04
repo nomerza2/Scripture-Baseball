@@ -1,6 +1,7 @@
 package com.example.scripturebaseball
 
 import android.content.Intent
+import android.net.Uri
 //import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -27,5 +28,10 @@ class HomeScreen : AppCompatActivity() {
 
     fun onNormalClick(view: View) {
         startGame(normalGuessLimit)
+    }
+
+    fun onInviteClick(view: View) {
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.churchofjesuschrist.org/comeuntochrist"))
+        startActivity(browserIntent)
     }
 }
