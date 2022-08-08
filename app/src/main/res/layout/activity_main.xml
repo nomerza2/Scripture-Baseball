@@ -10,61 +10,72 @@
         android:id="@+id/TextDisplayView"
         android:layout_width="wrap_content"
         android:layout_height="24dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="35dp"
         android:text="Hello World!"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/chapter_input"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:textSize="20sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/submitter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/submitter" />
 
     <Spinner
         android:id="@+id/book_chooser"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="20dp"
         android:entries="@array/BoM_Books"
         android:minHeight="48dp"
         app:layout_constraintBottom_toTopOf="@+id/Guess_Result"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/chapter_input"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/submitter" />
 
     <Button
         android:id="@+id/submitter"
+        style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="76dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginStart="35dp"
+        android:background="#3F51B5"
         android:onClick="onClick"
         android:text="Button"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/book_chooser"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/TextDisplayView"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Score_Displayer" />
 
     <EditText
         android:id="@+id/chapter_input"
         android:layout_width="90dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="266dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="20dp"
         android:ems="10"
         android:hint="@string/input_hint"
         android:inputType="number"
         android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/Guess_Result"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/book_chooser"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/book_chooser" />
 
     <TextView
         android:id="@+id/verse_display"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="35dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="35dp"
+        android:autoSizeMaxTextSize="40sp"
+        android:autoSizeTextType="uniform"
         android:text="TextView"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.38"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -83,70 +94,78 @@
         android:layout_height="30dp"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
-        android:layout_marginBottom="110dp"
         android:text="@string/Nonexistant_Guess"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/link_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/book_chooser" />
 
     <TextView
         android:id="@+id/Score_Displayer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="42dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="TextView"
         android:textColor="@android:color/holo_green_dark"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Score_Title" />
+        app:layout_constraintBottom_toTopOf="@+id/submitter"
+        app:layout_constraintEnd_toStartOf="@+id/Guesses_Title"
+        app:layout_constraintStart_toEndOf="@+id/Score_Title"
+        app:layout_constraintTop_toBottomOf="@+id/verse_display"
+        app:layout_constraintVertical_chainStyle="spread" />
 
     <TextView
         android:id="@+id/Score_Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="19dp"
         android:text="@string/Score"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="20sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/Score_Displayer"
+        app:layout_constraintEnd_toStartOf="@+id/Score_Displayer"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/Guesses_Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="19dp"
-        android:layout_marginEnd="32dp"
         android:text="@string/Guesses_Remaining"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="20sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/Score_Displayer"
+        app:layout_constraintEnd_toStartOf="@+id/Remaining_Guesses_Displayer"
+        app:layout_constraintStart_toEndOf="@+id/Score_Displayer" />
 
     <TextView
         android:id="@+id/Remaining_Guesses_Displayer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="48dp"
         android:text="TextView"
         android:textColor="@android:color/holo_red_dark"
         android:textSize="20sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/Guesses_Title"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Guesses_Title" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/Guesses_Title" />
 
     <Button
         android:id="@+id/link_button"
+        style="@style/Widget.AppCompat.Button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
-        android:layout_marginTop="25dp"
         android:layout_marginEnd="35dp"
+        android:layout_marginBottom="25dp"
+        android:background="#3B883E"
         android:onClick="onLinkButtonClick"
         android:text="@string/Link_Button"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Guess_Result" />
+        app:layout_constraintTop_toBottomOf="@+id/Guess_Result"
+        tools:ignore="TextContrastCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

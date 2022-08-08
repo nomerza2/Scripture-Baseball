@@ -11,22 +11,25 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
-        android:layout_marginTop="121dp"
         android:layout_marginEnd="35dp"
         android:gravity="center"
         android:text="@string/Welcome"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.13999999" />
 
     <Button
         android:id="@+id/begin_easy"
+        style="@style/Widget.AppCompat.Button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="43dp"
         android:layout_marginEnd="35dp"
+        android:background="@android:color/holo_blue_bright"
         android:onClick="onEasyClick"
         android:text="@string/Easy"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -40,6 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
         android:layout_marginEnd="43dp"
+        android:background="@android:color/holo_green_light"
         android:onClick="onNormalClick"
         android:text="@string/Normal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -51,9 +55,9 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="59dp"
         android:text="@string/Difficult_Choice"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toTopOf="@+id/begin_easy"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -63,7 +67,6 @@
         style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="69dp"
         android:background="@android:color/holo_orange_light"
         android:backgroundTint="@android:color/holo_orange_light"
         android:onClick="onInviteClick"
@@ -71,5 +74,7 @@
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9" />
 </androidx.constraintlayout.widget.ConstraintLayout>

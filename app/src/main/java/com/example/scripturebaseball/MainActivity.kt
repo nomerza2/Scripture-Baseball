@@ -142,7 +142,7 @@ class MainActivity : AppCompatActivity() {
     private fun interpretGuess() {
         val chapterInput = findViewById<EditText>(R.id.chapter_input)
 
-        val guessedChapter: Int = chapterInput.text?.toString()?.toIntOrNull() ?: 0 //Elvis Operator - blank input = null = 0 = Nonexistant guess
+        val guessedChapter: Int = chapterInput?.text?.toString()?.toInt() ?: 0 //Elvis Operator - blank input = null = 0 = Nonexistant guess
         val bookChooser = findViewById<Spinner>(R.id.book_chooser)
         val bookIndex = bookChooser.selectedItemPosition
         var message: String
