@@ -36,4 +36,6 @@
     <string name="Difficult_Choice">Choose a Difficulty to Begin</string>
     <string name="Invitation">Learn More About the Book of Mormon</string>
     <string name="Come_Unto_Christ_Link">https://www.churchofjesuschrist.org/comeuntochrist</string>
+    <string name="Author_Tag">App Designed by Nathan Omerza</string>
+    <string name="About">About</string>
 </resources>

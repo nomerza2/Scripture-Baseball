@@ -14,14 +14,19 @@
         android:theme="@style/Theme.ScriptureBaseball"
         tools:targetApi="31">
         <activity
+            android:name=".About"
+            android:exported="false"
+            android:parentActivityName=".HomeScreen"/>
+        <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:parentActivityName=".HomeScreen"/>
+            android:parentActivityName=".HomeScreen" />
         <activity
             android:name=".HomeScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

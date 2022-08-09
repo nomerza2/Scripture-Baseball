@@ -30,8 +30,8 @@ class HomeScreen : AppCompatActivity() {
         startGame(normalGuessLimit)
     }
 
-    fun onInviteClick(view: View) {
-        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.churchofjesuschrist.org/comeuntochrist"))
-        startActivity(browserIntent)
+    fun onAboutClick(view: View) {
+        var intent = Intent(this, About::class.java)
+        startActivity(intent)
     }
 }
