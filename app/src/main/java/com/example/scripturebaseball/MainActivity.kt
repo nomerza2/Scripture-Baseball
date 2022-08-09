@@ -16,6 +16,7 @@ import java.io.File
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
+    //Citation: JSON Book of Mormon File came from https://bencrowder.net/scriptures-in-json/
     var jBoM: JSONObject? = null
     private var chapterLimit: Int = 0
     private var targetBookIndex: Int = 0 //0-14, associated with books
