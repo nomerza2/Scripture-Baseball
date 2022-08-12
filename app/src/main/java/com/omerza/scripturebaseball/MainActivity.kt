@@ -1,4 +1,4 @@
-package com.example.scripturebaseball
+package com.omerza.scripturebaseball
 
 import android.content.Context
 import android.content.Intent

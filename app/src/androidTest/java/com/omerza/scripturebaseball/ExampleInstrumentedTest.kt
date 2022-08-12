@@ -1,4 +1,4 @@
-package com.example.scripturebaseball
+package com.omerza.scripturebaseball
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
