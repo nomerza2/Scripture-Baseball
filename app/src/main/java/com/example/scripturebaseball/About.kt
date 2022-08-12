@@ -16,4 +16,9 @@ class About : AppCompatActivity() {
         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.churchofjesuschrist.org/comeuntochrist"))
         startActivity(browserIntent)
     }
+
+    fun onPrivacyClick(view: View) {
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://sites.google.com/view/scripture-baseball-privacy/home"))
+        startActivity(browserIntent)
+    }
 }
